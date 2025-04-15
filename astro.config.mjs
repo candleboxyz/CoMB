@@ -6,9 +6,16 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			title: 'COMB',
+			social: [
+				{ icon: 'github', label: 'GitHub', href: 'https://github.com/candleboxyz' },
+				{ icon: 'linkedin', label: 'LinkedIn', href: '' }
+			],
 			sidebar: [
+				{
+					label: 'AI/ML',
+					autogenerate: { directory: 'AI' }
+				},
 				{
 					label: 'Guides',
 					items: [

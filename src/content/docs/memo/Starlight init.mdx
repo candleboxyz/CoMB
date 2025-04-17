@@ -2,6 +2,7 @@
 title: Starlight Initial Setup
 ---
 
+import { Steps } from '@astrojs/starlight/components';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 [Starlight](https://starlight.astro.build/)을 내 요구사항에 맞게 사용하기 위해 적절한 조정이 필요했다.  
@@ -13,89 +14,95 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 이에 따라 아래의 단계를 거쳐 요구사항을 만족시켰다.  
 *-- 이하에서 위 두 기능을 순서대로 각각 '수식', '다이어그램'으로 약기한다.*
 
-## 1. 패키지 설치
+## 방법
 
-<Tabs syncKey="content-type">
+<Steps>
 
-<TabItem label="수식">
-```shell
-npm install remark-math rehype-mathjax
-```
-</TabItem>
+1. **패키지 설치**
 
-<TabItem label="다이어그램">
-```shell
-npm install remark-mermaidjs
-npm init playwright@latest  # 대화형 설치 과정 진행
-```
-</TabItem>
+    <Tabs syncKey="content-type">
 
-</Tabs>
+    <TabItem label="수식">
+    ```shell
+    npm install remark-math rehype-mathjax
+    ```
+    </TabItem>
 
-## 2. `astro.config.mjs` 설정
+    <TabItem label="다이어그램">
+    ```shell
+    npm install remark-mermaidjs
+    npm init playwright@latest  # 대화형 설치 과정 진행
+    ```
+    </TabItem>
 
-<Tabs syncKey="content-type">
+    </Tabs>
 
-<TabItem label="수식">
-```diff lang="js"
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
-+import remarkMath from 'remark-math';
-+import rehypeMathJax from 'rehype-mathjax';
+2. **`astro.config.mjs` 설정**
 
-export default defineConfig({
-  // 이하의 'markdown' 항목이 없다면 추가
-  markdown: {
-+    remarkPlugins: [remarkMath],
-+    rehypePlugins: [rehypeMathJax],
-  },
+    <Tabs syncKey="content-type">
 
-  integrations: [
-    starlight({
-      // ...
-      // 인라인 수식을 위한 설정 (아래 디렉토리에 CSS 파일 생성 필요)
-+			customCss: ['./src/mathjax.css'],
-    }),
-  ],
-});
-```
-</TabItem>
+    <TabItem label="수식">
+    ```diff lang="js"
+    import { defineConfig } from 'astro/config';
+    import starlight from '@astrojs/starlight';
+    +import remarkMath from 'remark-math';
+    +import rehypeMathJax from 'rehype-mathjax';
 
-<TabItem label="다이어그램">
-```diff lang="js"
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
-+import remarkMermaid from 'remark-mermaidjs';
+    export default defineConfig({
+      // 이하의 'markdown' 항목이 없다면 추가
+      markdown: {
+    +    remarkPlugins: [remarkMath],
+    +    rehypePlugins: [rehypeMathJax],
+      },
 
-export default defineConfig({
-  // 이하의 'markdown' 항목이 없다면 추가
-  markdown: {
-+    remarkPlugins: [remarkMermaid],
-  },
+      integrations: [
+        starlight({
+          // ...
+          // 인라인 수식을 위한 설정 (아래 디렉토리에 CSS 파일 생성 필요)
+    +			customCss: ['./src/mathjax.css'],
+        }),
+      ],
+    });
+    ```
+    </TabItem>
 
-	integrations: [
-		starlight({
-      // ...
-    }),
-  ],
-});
-```
-</TabItem>
+    <TabItem label="다이어그램">
+    ```diff lang="js"
+    import { defineConfig } from 'astro/config';
+    import starlight from '@astrojs/starlight';
+    +import remarkMermaid from 'remark-mermaidjs';
+    
+    export default defineConfig({
+      // 이하의 'markdown' 항목이 없다면 추가
+      markdown: {
+    +    remarkPlugins: [remarkMermaid],
+      },
 
-</Tabs>
+      integrations: [
+        starlight({
+          // ...
+        }),
+      ],
+    });
+    ```
+    </TabItem>
 
-## 3. 추가 작성 (수식 기능)
+    </Tabs>
 
-코드에서 주석으로 언급했듯이, 인라인 수식을 위해서는 별도의 CSS 파일 작성이 필요하다.
+3. **추가 작성 (수식 기능)**
 
-```css
-/* src/mathjax.css */
-mjx-container svg {
-    display: inline !important;
-}
-```
+    코드에서 주석으로 언급했듯이, 인라인 수식을 위해서는 별도의 CSS 파일 작성이 필요하다.
 
-## A. -- 정리 --
+    ```css
+    /* src/mathjax.css */
+    mjx-container svg {
+        display: inline !important;
+    }
+    ```
+
+</Steps>
+
+## -- 정리 --
 
 이상 Starlight에서 수식과 Mermaid 다이어그램을 렌더링할 수 있는 방법을 소개했다.  
 참고로, 이 둘의 설정을 모두 적용한 `astro.config.mjs`의 모습은 아래와 같다.
@@ -125,7 +132,7 @@ export default defineConfig({
 
 끝으로 수식과 다이어그램 각각의 예시 작성과 해당 렌더링 모습을 보인다.
 
-### A.1 수식
+### 수식
 ---
 
 $$
@@ -148,7 +155,7 @@ A_{m,n} =
  \end{pmatrix}
 ```
 
-### A.2 다이어그램
+### 다이어그램
 ---
 
 *최신 유형 '레이더 다이어그램'의 베타 버전을 표시한다.*
@@ -180,6 +187,6 @@ radar-beta
   min 0
 ```
 
-## B. -- reference --
+## -- reference --
 - [수식 | GitHub discussion](https://github.com/withastro/starlight/discussions/968#discussioncomment-7385096)
 - [다이어그램 | Agramont blog ](https://agramont.net/blog/diagraming-with-mermaidjs-astro/#starlight)

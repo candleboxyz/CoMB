@@ -26,6 +26,18 @@ export default defineConfig({
 					autogenerate: { directory: 'AI' }
 				},
 				{
+					label: 'CLI',
+					autogenerate: { directory: 'CLI' }
+				},
+				{
+					label: 'Libraries',
+					autogenerate: { directory: 'lib'}
+				},
+				{
+					label: 'How-to',
+					autogenerate: { directory: 'how-to' }
+				},
+				{
 					label: 'Guides',
 					items: [
 						// Each item here is one entry in the navigation menu.

@@ -1,0 +1,73 @@
+---
+const { collapsible = false, summary = "Show Output" } = Astro.props;
+---
+
+{collapsible ? (
+    <details class="samp-box">
+        <summary>
+            {summary}
+            <span class="dot" />
+        </summary>
+        <pre><samp><slot /></samp></pre>
+    </details>
+) : (
+    <pre class="samp-box"><samp>
+        <slot />
+    </samp></pre>
+)}
+
+<style>
+    pre {
+        margin: 1em 0;
+        padding: 1em;
+        border-radius: 10px;
+        white-space: pre-wrap;
+        overflow-x: auto;
+        /* font-family: 'Fira Code', monospace; */
+    }
+
+    :root {
+        --samp-hover-color: #888;
+        --samp-dot-color: #3D4FF5; /* 파란 dot 색상 */
+    }
+    /* ⭐ TODO: 라이트/다크 모드 전환에 따른 스타일 전환 */
+
+    /* 기본 summary 스타일 */
+    .samp-box > summary {
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        transition: color 0.2s ease;
+        color: inherit;
+        position: relative;
+    }
+
+    /* 점 인디케이터 */
+    .samp-box > summary .dot {
+        content: '';
+        width: 0.35em;
+        height: 0.35em;
+        border-radius: 50%;
+        background-color: transparent;
+        transition: background-color 0.2s ease;
+        margin-left: 0.1em;
+        margin-bottom: 0.5em;
+    }
+
+    /* 마우스 호버 시 dot on (닫힌 상태에서만) */
+    .samp-box:not([open]) > summary:hover .dot {
+        background-color: var(--samp-dot-color);
+    }
+
+    /* 열린 상태면 항상 dot on */
+    .samp-box[open] > summary .dot {
+        background-color: var(--samp-dot-color);
+    }
+
+    /* hover 시 summary 텍스트 색상 */
+    .samp-box > summary:hover {
+        color: var(--samp-hover-color);
+    }
+</style>

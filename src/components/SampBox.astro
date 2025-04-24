@@ -11,9 +11,12 @@ const { collapsible = false, summary = "Show Output" } = Astro.props;
         <pre><samp><slot /></samp></pre>
     </details>
 ) : (
-    <pre class="samp-box"><samp>
-        <slot />
-    </samp></pre>
+    <details class="samp-box non-collapsible" open>
+        <summary>
+            {summary}
+        </summary>
+        <pre><samp><slot /></samp></pre>
+    </details>
 )}
 
 <style>
@@ -69,5 +72,17 @@ const { collapsible = false, summary = "Show Output" } = Astro.props;
     /* hover 시 summary 텍스트 색상 */
     .samp-box > summary:hover {
         color: var(--samp-hover-color);
+    }
+
+    /* non-collapsible - click inactive*/
+    .samp-box.non-collapsible {
+        pointer-events: none;
+    }
+
+    /* non-collapsible - 토글 화살표 표시 제거 */
+    .samp-box.non-collapsible > summary::before,
+    .samp-box.non-collapsible > summary::after {
+        content: none !important;
+        display: none !important;
     }
 </style>

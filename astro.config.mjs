@@ -22,12 +22,20 @@ export default defineConfig({
 			],
 			sidebar: [
 				{
+					label: '__experimental__',
+					autogenerate: { directory: '__draft__' }
+				},
+				{
 					label: 'AI/ML',
 					autogenerate: { directory: 'AI' }
 				},
 				{
-					label: 'CLI',
-					autogenerate: { directory: 'CLI' }
+					label: 'Web',
+					autogenerate: {directory: 'Web' }
+				},
+				{
+					label: '개발 도구',
+					autogenerate: {directory: 'dev_tool'}
 				},
 				{
 					label: 'Libraries',

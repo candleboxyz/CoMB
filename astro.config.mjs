@@ -22,8 +22,20 @@ export default defineConfig({
 			],
 			sidebar: [
 				{
-					label: '__experimental__',
+					label: '-- experimental --',
 					autogenerate: { directory: '__draft__' }
+				},
+				{
+					label: '-- draft --',
+					autogenerate: { directory: '-- draft-pub --' }
+				},
+				{
+					label: 'Mathematics',
+					autogenerate: { directory: 'math' }
+				},
+				{
+					label: 'CSE',
+					autogenerate: { directory: 'CSE' }
 				},
 				{
 					label: 'AI/ML',

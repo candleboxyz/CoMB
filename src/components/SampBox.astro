@@ -1,21 +1,53 @@
 ---
-const { collapsible = false, summary = "Show Output" } = Astro.props;
+// Define component props interface
+export interface Props {
+  collapsible?: boolean;  // Whether the output can be collapsed
+  summary?: string;       // Text shown in the summary/header
+  code?: string;         // Pre-formatted code content (alternative to slot)
+}
+
+const { collapsible = false, summary = "Show Output", code } = Astro.props;
+
+// Use code prop if provided, otherwise render slot content
+let content = code;
+
+if (!content) {
+  // Get slot content as text
+  const slotContent = await Astro.slots.render('default');
+  
+  // Convert HTML entities back to actual characters
+  // This prevents double-escaping of special characters
+  // NOTE: This is safe from XSS because we use {content} (not set:html),
+  // which means Astro will escape the content again when rendering
+  content = slotContent
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&');  // Important: decode &amp; last to avoid double-decoding
+}
+
+// Remove leading newline when using code prop with template literals
+if (code && code.startsWith('\n')) {
+  content = content.trimStart();
+}
 ---
 
+<!-- Render collapsible or non-collapsible output box based on prop -->
 {collapsible ? (
     <details class="samp-box">
         <summary>
             {summary}
             <span class="dot" />
         </summary>
-        <pre><samp><slot /></samp></pre>
+        <pre><samp>{content}</samp></pre>
     </details>
 ) : (
     <details class="samp-box non-collapsible" open>
         <summary>
             {summary}
         </summary>
-        <pre><samp><slot /></samp></pre>
+        <pre><samp>{content}</samp></pre>
     </details>
 )}
 
@@ -31,11 +63,11 @@ const { collapsible = false, summary = "Show Output" } = Astro.props;
 
     :root {
         --samp-hover-color: #888;
-        --samp-dot-color: #3D4FF5; /* 파란 dot 색상 */
+        --samp-dot-color: #3D4FF5; /* Blue dot color */
     }
-    /* ⭐ TODO: 라이트/다크 모드 전환에 따른 스타일 전환 */
+    /* ⭐ TODO: Add light/dark mode style transitions */
 
-    /* 기본 summary 스타일 */
+    /* Base summary styles */
     .samp-box > summary {
         cursor: pointer;
         font-weight: bold;
@@ -47,7 +79,7 @@ const { collapsible = false, summary = "Show Output" } = Astro.props;
         position: relative;
     }
 
-    /* 점 인디케이터 */
+    /* Dot indicator */
     .samp-box > summary .dot {
         content: '';
         width: 0.35em;
@@ -59,27 +91,27 @@ const { collapsible = false, summary = "Show Output" } = Astro.props;
         margin-bottom: 0.5em;
     }
 
-    /* 마우스 호버 시 dot on (닫힌 상태에서만) */
+    /* Show dot on hover (only when closed) */
     .samp-box:not([open]) > summary:hover .dot {
         background-color: var(--samp-dot-color);
     }
 
-    /* 열린 상태면 항상 dot on */
+    /* Always show dot when open */
     .samp-box[open] > summary .dot {
         background-color: var(--samp-dot-color);
     }
 
-    /* hover 시 summary 텍스트 색상 */
+    /* Summary text color on hover */
     .samp-box > summary:hover {
         color: var(--samp-hover-color);
     }
 
-    /* non-collapsible - click inactive*/
+    /* non-collapsible - click inactive */
     .samp-box.non-collapsible {
         pointer-events: none;
     }
 
-    /* non-collapsible - 토글 화살표 표시 제거 */
+    /* non-collapsible - remove toggle arrow */
     .samp-box.non-collapsible > summary::before,
     .samp-box.non-collapsible > summary::after {
         content: none !important;

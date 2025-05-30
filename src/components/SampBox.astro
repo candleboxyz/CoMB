@@ -1,3 +1,4 @@
+
 ---
 // Define component props interface
 export interface Props {
@@ -27,8 +28,8 @@ if (!content) {
     .replace(/&amp;/g, '&');  // Important: decode &amp; last to avoid double-decoding
 }
 
-// Remove leading newline when using code prop with template literals
-if (code && code.startsWith('\n')) {
+// Remove leading newline from template literals (both code prop and slot content)
+if (content && content.startsWith('\n')) {
   content = content.trimStart();
 }
 ---

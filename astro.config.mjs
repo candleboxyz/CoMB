@@ -4,6 +4,7 @@ import starlight from '@astrojs/starlight';
 import rehypeMathJax from 'rehype-mathjax';
 import remarkMath from 'remark-math';
 import remarkMermaid from 'remark-mermaidjs';
+import { type } from 'os';
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,6 +16,22 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'COMB',
+			head: [
+				{
+					tag: 'link',
+					attrs: {
+						rel: 'stylesheet',
+						href: 'https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css',
+					},
+				},
+				{
+					tag: 'script',
+					attrs: {
+						src: 'https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js',
+						type: 'text/javascript',
+					},
+				},
+			],
 			customCss: ['./src/mathjax.css'],
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/candleboxyz' },

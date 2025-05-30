@@ -1,0 +1,86 @@
+---
+// JSXGraph.astro
+// JSXGraph를 Astro/Starlight에서 사용하기 위한 컴포넌트
+export interface Props {
+  id?: string;
+  width?: string;
+  height?: string;
+  boundingBox?: number[];
+  axis?: boolean;
+  grid?: boolean;
+  // JSXGraph 설정을 위한 추가 옵션들
+  boardOptions?: Record<string, any>;
+  // 그래프 구성을 위한 함수 문자열
+  initFunction?: string;
+}
+
+const { 
+  id = 'jxgbox', 
+  width = '500px', 
+  height = '400px',
+  boundingBox = [-5, 5, 5, -5],
+  axis = true,
+  grid = false,
+  boardOptions = {},
+  initFunction = ''
+} = Astro.props;
+
+// 고유한 ID 생성 (여러 그래프가 한 페이지에 있을 경우)
+const uniqueId = `${id}-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div id={uniqueId} class="jxgbox" style={`width: ${width}; height: ${height};`}></div>
+
+<script define:vars={{ uniqueId, boundingBox, axis, grid, boardOptions, initFunction }}>
+  // 브라우저 환경에서만 실행
+  if (typeof window !== 'undefined') {
+    // JSXGraph 라이브러리가 로드될 때까지 대기
+    function initializeBoard() {
+      if (typeof JXG !== 'undefined') {
+        const options = {
+          boundingbox: boundingBox,
+          axis: axis,
+          grid: grid,
+          ...boardOptions
+        };
+        
+        const board = JXG.JSXGraph.initBoard(uniqueId, options);
+        
+        // 사용자 정의 초기화 함수 실행
+        if (initFunction) {
+          try {
+            // board를 매개변수로 전달하여 함수 실행
+            const func = new Function('board', 'JXG', initFunction);
+            func(board, JXG);
+          } catch (error) {
+            console.error('JSXGraph initialization error:', error);
+          }
+        }
+        
+        // MathJax가 있으면 수식 렌더링 (선택사항)
+        // JSXGraph 텍스트에서 useMathJax: true 옵션을 사용한 경우에만 필요
+        if (typeof MathJax !== 'undefined') {
+          MathJax.typeset();
+        }
+      } else {
+        // JSXGraph가 아직 로드되지 않았으면 재시도
+        setTimeout(initializeBoard, 100);
+      }
+    }
+    
+    // DOM이 준비되면 초기화
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeBoard);
+    } else {
+      initializeBoard();
+    }
+  }
+</script>
+
+<style>
+  .jxgbox {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+</style>

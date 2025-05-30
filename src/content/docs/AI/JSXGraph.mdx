@@ -1,0 +1,72 @@
+---
+title: JSXGraph 예제
+description: JSXGraph 라이브러리를 사용하여 함수 그래프와 수식을 시각화하는 예제
+draft: true
+---
+
+import JSXGraph from '../../../components/JSXGraph.astro';
+
+<JSXGraph 
+  id="my-graph"
+  width="600px"
+  height="400px"
+  initFunction={`
+    var f = board.create('functiongraph', [
+      function(x) { return Math.sin(x); }
+    ]);
+  `}
+/>
+
+<JSXGraph 
+  id="basic-graph"
+  width="600px"
+  height="400px"
+  initFunction={`
+    // 함수 그래프
+    var f = board.create('functiongraph', [
+      function(x) { return x*x - 2*x + 1; }
+    ], {
+      strokeColor: '#0066cc',
+      strokeWidth: 2
+    });
+    
+    // 일반 텍스트 라벨
+    board.create('text', [2, 4, 'f(x) = x^2 - 2x + 1'], {
+      fontSize: 16
+    });
+    
+    // 점 추가
+    var p = board.create('point', [1, 0], {
+      name: 'Minimum',
+      size: 4
+    });
+  `}
+/>
+
+### 수식이 포함된 그래프
+
+<JSXGraph 
+  id="math-graph"
+  width="600px"
+  height="400px"
+  initFunction={`
+    // 함수 그래프
+    var f = board.create('functiongraph', [
+      function(x) { return Math.sin(x) * Math.cos(2*x); }
+    ], {
+      strokeColor: '#dc2626',
+      strokeWidth: 2
+    });
+    
+    // MathJax로 렌더링되는 수식
+    board.create('text', [2, 0.8, '$$f(x) = \\sin(x) \\cdot \\cos(2x)$$'], {
+      fontSize: 16,
+      useMathJax: true  // 이 옵션을 사용하면 MathJax로 렌더링
+    });
+    
+    // 일반 텍스트 (MathJax 사용 안 함)
+    board.create('text', [2, -0.8, 'y = sin(x) * cos(2x)'], {
+      fontSize: 14
+    });
+  `}
+/>

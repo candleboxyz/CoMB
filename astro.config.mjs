@@ -48,31 +48,31 @@ export default defineConfig({
 				},
 				{
 					label: 'Mathematics',
-					autogenerate: { directory: 'math' }
+					autogenerate: { directory: '01--math' }
 				},
 				{
 					label: 'CSE',
-					autogenerate: { directory: 'CSE' }
+					autogenerate: { directory: '02--CSE' }
 				},
 				{
 					label: 'AI/ML',
-					autogenerate: { directory: 'AI' }
+					autogenerate: { directory: '03--AI' }
 				},
 				{
 					label: 'Web',
-					autogenerate: {directory: 'Web' }
+					autogenerate: {directory: '04--web' }
 				},
 				{
 					label: '개발 도구',
-					autogenerate: {directory: 'dev_tool'}
-				},
-				{
-					label: 'Libraries',
-					autogenerate: { directory: 'lib'}
+					autogenerate: {directory: 'z--dev_tool'}
 				},
 				{
 					label: 'How-to',
-					autogenerate: { directory: 'how-to' }
+					autogenerate: { directory: 'z--how_to' }
+				},
+				{
+					label: '표기법',
+					autogenerate: { directory: 'z--notation_throughout_the_docs' }
 				},
 				{
 					label: 'Guides',
@@ -84,10 +84,6 @@ export default defineConfig({
 				{
 					label: 'Reference',
 					autogenerate: { directory: 'reference' },
-				},
-				{
-					label: 'memo',
-					autogenerate: {directory: 'memo'}
 				},
 			],
 		}),

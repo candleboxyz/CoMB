@@ -47,24 +47,25 @@ export default defineConfig({
 					autogenerate: { directory: '-- draft-pub --' }
 				},
 				{
-					label: 'Mathematics',
+					label: '∑ Mathematics',
 					autogenerate: { directory: '01--math' }
 				},
 				{
-					label: 'CSE',
+					label: '🧮 CSE',
 					autogenerate: { directory: '02--CSE' }
 				},
 				{
-					label: 'AI/ML',
+					label: '🧠 AI/ML',
 					autogenerate: { directory: '03--AI' }
 				},
 				{
-					label: 'Web',
+					label: '🌐 Web',
 					autogenerate: {directory: '04--web' }
 				},
 				{
-					label: '개발 도구',
-					autogenerate: {directory: 'z--dev_tool'}
+					// This is a special section for 'developer experience' topics
+					label: '👨‍💻 DX',
+					autogenerate: {directory: '05--DX' }
 				},
 				{
 					label: 'How-to',

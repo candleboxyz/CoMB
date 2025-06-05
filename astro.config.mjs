@@ -63,13 +63,15 @@ export default defineConfig({
 					autogenerate: {directory: '04--web' }
 				},
 				{
-					// This is a special section for 'developer experience' topics
+					// For 'developer experience' topics
 					label: '👨‍💻 DX',
 					autogenerate: {directory: '05--DX' }
 				},
 				{
-					label: 'How-to',
-					autogenerate: { directory: 'z--how_to' }
+					label: '📦 Environment Setup',
+					// For environment setup guides,
+					// like setting up a dev environment or configuring tools
+					autogenerate: { directory: 'z--env_setup' }
 				},
 				{
 					label: '표기법',

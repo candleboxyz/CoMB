@@ -1,0 +1,66 @@
+---
+title: Visual Studio Code | 유용한 설정
+draft: true
+---
+
+
+`〈Ctrl/Cmd〉 + Shift + P`를 눌러 명령 팔레트를 열고, "Preferences: Open User Settings (JSON)"을 입력하여 위 설정을 추가할 수 있다.
+
+> 여기서 *Windows는 `Ctrl` 키를, macOS는 `Cmd` 키를 통해 팔레트를 켠다.*
+
+아래 설정은 Visual Studio Code에서 유용하게 사용할 수 있는 몇 가지 설정이다.
+
+```json title="settings.json" showLineNumbers {2-8, 10, 12-17}
+{
+    "editor.mouseWheelZoom": true,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "trailing",
+    "editor.rulers": [
+        72, // Python - docstring/comment
+        79, // Python (https://peps.python.org/pep-0008/)
+    ],
+    
+    "files.autoSave": "onFocusChange",
+
+    "[markdown]": {
+        "editor.wordWrap": "on"
+    },
+    "[mdx]": {
+        "editor.wordWrap": "on"
+    }
+}
+```
+
+- `"editor.mouseWheelZoom": true` *( line:2 )*  
+  : 마우스 휠을 사용하여 편집하는 코드의 문자 크기를 확대/축소 가능.
+- `"editor.minimap.enabled: false"` *( line:3 )*  
+  : 미니맵을 비활성화하여 화면 공간을 절약.
+- `"editor.renderWhitespace": "trailing"` *( line:4 )*  
+  : 공백 문자를 시각화해주되, 후행 공백일 경우 표시, 붎필요한 공백의 식별 용이.
+- `"editor.rulers"` *( line:5 )*  
+  : 코드 작성 시 가독성을 높이기 위해 특정 열에 수직선을 표시. 여기서는 Python의 docstring/comment에 적합한 72열과 PEP 8에서 권장하는 79열을 설정.
+- `"files.autoSave: "onFocusChange"` *( line:10 )*  
+  : 편집 포커스의 변경 시 자동으로 파일을 저장.
+- `"[markdown]"` 및 `"[mdx]"`에서의 `"editor.wordWrap": "on"` *( line:12-17 )*  
+  : Markdown 계열 파일에서 자동 줄바꿈 시각화를 활성화하여 긴 줄이 창을 넘어 생기는 불편을 해소해 글 작성에 편리함을 제공.  
+  *만약 특정 확장자를 인식하지 못한다면 아래와 같이 설정하여 인식을 명시화할 수 있다.*
+  ```json ins={3-5}
+  {
+    // ...
+    "files.associations": {
+      "*.mdx": "mdx"
+    },
+    "[mdx]": {
+      "editor.wordWrap": "on"
+    }
+  }
+  ```
+
+추가적으로, Windows에서는 `"editor.multiCursorModifier": "ctrlCmd"` 설정을 추가하여, 기본값인 `Alt` 키를 대신하여 `Ctrl` 키를 사용한 멀티 커서 활성화를 고려할 수 있다. macOS에서와 달리 Windows에서는 여러 응용 프로그램에서 객체 다중 선택을 위해 `Ctrl + 〈마우스_클릭〉`을 널리 사용하므로, 이러한 설정이 일반적인 Windows 사용 경험과 통일성이 있다. 물론 macOS와긔 교차 경험 통일성을 위해서 기본값 `"alt"`로 유지할 수도 있다.
+
+```json showLineNumbers=false
+{
+    // 멀티 커서 기능키 - 운영체제 상관 없이 기본값은 "alt"
+    "editor.multiCursorModifier": "ctrlCmd"
+}
+```

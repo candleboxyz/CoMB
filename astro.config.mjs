@@ -32,7 +32,10 @@ export default defineConfig({
 					},
 				},
 			],
-			customCss: ['./src/mathjax.css'],
+			customCss: [
+				'./src/styles/global.css',
+				'./src/styles/mathjax.css',
+			],
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/candleboxyz' },
 				{ icon: 'linkedin', label: 'LinkedIn', href: '' }

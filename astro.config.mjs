@@ -1,10 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightVideos from 'starlight-videos'
 import rehypeMathJax from 'rehype-mathjax';
 import remarkMath from 'remark-math';
 import remarkMermaid from 'remark-mermaidjs';
-import { type } from 'os';
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,6 +15,7 @@ export default defineConfig({
 
 	integrations: [
 		starlight({
+			plugins: [starlightVideos()],
 			title: 'COMB',
 			head: [
 				{

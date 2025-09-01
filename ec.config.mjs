@@ -7,7 +7,7 @@ export default {
   defaultProps: {
     showLineNumbers: false,
     overridesByLang: {
-      'js,ts,html,python': {
+      'js,ts,html,python,c': {
         showLineNumbers: true,
       },
     },

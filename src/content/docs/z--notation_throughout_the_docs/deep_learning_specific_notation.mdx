@@ -1,6 +1,7 @@
 ---
 title: Deep Learning 분야 표기법 정리
 description: 딥러닝에서 자주 사용되는 표기법과 기호에 대한 가이드
+draft: true
 sidebar:
     badge:
         text: beta
@@ -110,7 +111,7 @@ sidebar:
 - **$\frac{\partial J}{\partial W}$**: 편미분 (스칼라 $J$를 행렬 $W$로 미분)
 - **$\nabla_W J$**: 그래디언트 (벡터 표기)
 - **$\delta_{ij}$**: 크로네커 델타 (Kronecker delta)
-  - $\delta_{ij} = 1$ if $i=j$, 0 otherwise
+  - $$\delta_{ij} = \begin{cases} 1 & \text{if } i = j \\ 0 & \text{if } i \ne j \end{cases}$$
 
 ### 5.3 집합과 확률
 - **$\mathcal{D}$**: 데이터셋
@@ -168,7 +169,7 @@ b^{[l]} := b^{[l]} - \alpha \frac{\partial J}{\partial b^{[l]}}
 ## 부록: 그리스 문자 사용
 
 딥러닝에서 자주 사용되는 그리스 문자:
-- α (alpha): 학습률 (하지만 η가 더 일반적)
+- α (alpha): 학습률 (하지만 η가 더 보편적)
 - β (beta): 모멘텀 계수, 베타 분포 파라미터
 - γ (gamma): 할인 계수 (강화학습)
 - δ (delta): 오차, 작은 변화량

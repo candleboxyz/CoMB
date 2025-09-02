@@ -36,6 +36,7 @@ export default defineConfig({
 						label: '🧮 CSE', link: '02--cse/readme',
 						// icon: 'laptop',
 						items: [
+							{ label: 'general', autogenerate: { directory: '02--CSE/_general' } },
 							{ label: 'DSA', autogenerate: { directory: '02--CSE/DSA' } },
 							{ label: 'Computer Network', autogenerate: { directory: '02--CSE/network' } },
 							{ label: 'Operating System', autogenerate: { directory: '02--CSE/OS' } },
@@ -69,6 +70,7 @@ export default defineConfig({
 						items: [
 							// Each item here is one entry in the navigation menu.
 							{ label: 'Example Guide', slug: 'guides/example' },
+							{ label: 'Notation', autogenerate: { directory: 'guides/z--notation_throughout_the_docs' } },
 						],
 					},
 				]),

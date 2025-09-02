@@ -10,10 +10,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.34.3",
+    "@astrojs/starlight": "^0.35.2",
     "@expressive-code/plugin-collapsible-sections": "^0.41.2",
     "@expressive-code/plugin-line-numbers": "^0.41.2",
-    "astro": "^5.8.2",
+    "astro": "^5.13.5",
     "rehype-mathjax": "^7.1.0",
     "remark-math": "^6.0.0",
     "remark-mermaidjs": "^7.0.0",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.51.1",
-    "@types/node": "^22.14.1"
+    "@types/node": "^22.14.1",
+    "wrangler": "^4.33.1"
   }
 }

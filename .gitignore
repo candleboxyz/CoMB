@@ -30,4 +30,4 @@ pnpm-debug.log*
 .vscode/**
 
 # --- custom ---
-src/content/docs/__draft__/
+src/content/**/__draft__/

@@ -1,0 +1,11 @@
+/cse            /computer-science-engineering           301
+/cse/           /computer-science-engineering/          301
+/cse/*          /computer-science-engineering/:splat    301
+
+/ai            /artificial-intelligence                 301
+/ai/           /artificial-intelligence/                301
+/ai/*          /artificial-intelligence/:splat          301
+
+/dx            /developer-experience                    301
+/dx/           /developer-experience/                   301
+/dx/*          /developer-experience/:splat             301

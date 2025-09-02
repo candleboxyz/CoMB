@@ -22,7 +22,7 @@ export default defineConfig({
 			plugins: [
 				starlightSidebarTopics([
 					{
-						label: '∑ Mathematics', link: '01--math/readme',
+						label: '∑ Mathematics', link: 'math/readme',
 						// icon: 'open-book',
 						items: [
 							{ label: 'Algebra', autogenerate: { directory: '01--math/algebra' } },
@@ -33,7 +33,7 @@ export default defineConfig({
 						],
 					},
 					{
-						label: '🧮 CSE', link: '02--cse/readme',
+						label: '🧮 CSE', link: 'computer-science-engineering/readme',
 						// icon: 'laptop',
 						items: [
 							{ label: 'general', autogenerate: { directory: '02--CSE/_general' } },
@@ -46,7 +46,7 @@ export default defineConfig({
 						], 
 					},
 					{
-						label: '🧠 AI/ML', link: '03--ai/readme',
+						label: '🧠 AI/ML', link: 'artificial-intelligence/readme',
 						// icon: 'puzzle',
 						items: [
 							{ label: 'Fundamentals', autogenerate: { directory: '03--AI/fundamentals' } },
@@ -57,7 +57,7 @@ export default defineConfig({
 						], 
 					},
 					{
-						label: '⚙️ DX & Setup', link: '04--dx/readme',
+						label: '⚙️ DX & Setup', link: 'developer-experience/readme',
 						// icon: 'setting',
 						items: [
 							{ label: 'Cheatsheet', autogenerate: { directory: '04--DX/cheatsheet' } },

@@ -1,0 +1,50 @@
+---
+import katex from 'katex';
+import { Quiz, QuizOption } from 'starlight-videos/components';
+
+import 'katex/dist/katex.min.css';
+
+export interface Props {
+  quiz?: 'matrix_1' | 'linearity' | 'all';
+}
+
+const { quiz = 'all' } = Astro.props;  // default for no prop passed
+
+// SSR helper to pre-render LaTeX math formulas using KaTeX
+function renderMath(tex: string): string {
+  return katex.renderToString(tex, {
+    throwOnError: false,
+    displayMode: false
+  });
+}
+
+// SSR pre-rendered math formulas
+const mathFormulas = {
+  idempotent: renderMath('f(f(x))=f(x)'),
+  monotonic: renderMath('x \\le y \\Rightarrow f(x) \\le f(y)'),
+  additive: renderMath('f(x+y)=f(x)+f(y)'),
+  multiplicative: renderMath('f(xy)=f(x)f(y)'),
+  alpha: renderMath('\\alpha'),
+  homogeneous: renderMath('f(\\alpha x) = \\alpha f(x)')
+};
+---
+
+<div class="math-quiz-container">
+  {(quiz === 'matrix_1' || quiz === 'all') && (
+    <Quiz title="'행렬'은 단순히 숫자를 행과 열로 보관하는 구조이기만 하지는 않습니다. 약속을 통해 '행렬'에 담아놓은 특수한 연산인 행렬곱 덕분에 행렬은 *이것*으로도 볼 수 있어요. *이것*은 무엇인가요?">
+      <QuizOption>좌표 변환 연산자</QuizOption>
+      <QuizOption correct>선형 변환 함수</QuizOption>
+      <QuizOption>벡터 공간 구조</QuizOption>
+    </Quiz>
+  )}
+
+  {(quiz === 'linearity' || quiz === 'all') && (
+    <Quiz title="'선형성'(linearity)을 이루는 성질을 모두 고르세요(2개). 이 성질이 어떻게 불리는지도 알고 있나요?" multiple>
+      <QuizOption set:html={mathFormulas.idempotent}></QuizOption>
+      <QuizOption set:html={mathFormulas.monotonic}></QuizOption>
+      <QuizOption correct set:html={mathFormulas.additive}></QuizOption>
+      <QuizOption set:html={mathFormulas.multiplicative}></QuizOption>
+      <QuizOption correct>임의의 스칼라 <span set:html={mathFormulas.alpha}></span>에 대해, <span set:html={mathFormulas.homogeneous}></span></QuizOption>
+    </Quiz>
+  )}
+</div>

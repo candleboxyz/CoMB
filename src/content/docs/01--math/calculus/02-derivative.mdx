@@ -1,0 +1,299 @@
+---
+title: 미분 (Derivative)
+description: 다항함수의 미분 원리. 컴퓨터 과학에서의 응용 맛보기.
+keywords: [미분, 도함수, 다항함수, 기울기, 미분계수,
+           differentiation, derivative, polynomial function]
+sidebar:
+    order: 2
+    badge:
+        text: β
+        variant: caution
+lastUpdated: 2025-09-06
+---
+
+import { Aside, Card, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Aside type="tip">
+**미분이란?** 함수의 순간 변화율을 나타내는 개념으로, 어떤 점에서 함수가 얼마나 빠르게 변하는지 측정한다.  
+기하학적으로는 곡선 위의 한 점에서 접선의 기울기를 의미한다.
+</Aside>
+
+<Aside>
+영어에서 "derivative"와 "differential"은 서로 다른 개념이다:
+- **Derivative**: 미분계수 또는 도함수를 의미[^1]
+- **Differential**: 함수의 미소(infinitesimal) 변화량을 의미[^2]
+
+이 문서는 "derivative"에 중점을 두어 다항함수의 미분을 엄밀히 증명하고 응용을 다룬다.
+</Aside>
+
+## 개요
+
+미분은 현대 과학과 공학의 핵심 도구이다. 특히 컴퓨터 과학에서는 다음과 같이 활용한다:
+- **최적화**: 경사하강법(Gradient Descent)의 기초
+- **머신러닝**: 역전파(Backpropagation) 알고리즘의 핵심
+- **컴퓨터 그래픽스**: 곡선과 표면의 부드러운 렌더링
+- **수치해석**: 미분방정식의 수치적 해법
+
+## 다항함수의 미분 증명
+> ***Proof of Polynomial Differentiation***
+
+### 기본 정의
+
+함수 $f: \mathbb{R} \to \mathbb{R}$가 점 $x$에서 미분가능하다는 조건은 다음 극한이 존재함이다:
+
+$$
+f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+$$
+
+이 값을 $x$에서의 **도함수(derivative)** 또는 **미분계수**라 한다.
+
+### 단계 1: 상수함수의 미분
+
+**정리**: $f(x) = c$ (상수)일 때, $f'(x) = 0$
+
+**증명**:
+$$
+f'(x) = \lim_{h \to 0} \frac{c - c}{h} = \lim_{h \to 0} \frac{0}{h} = 0
+$$
+
+<Aside type="note">
+상수함수는 변화가 없으므로 변화율이 0이다. 그래프상으로는 수평선이며, 기울기가 0이다.
+</Aside>
+
+### 단계 2: 멱함수의 미분 (Power Rule)
+
+**정리**: $f(x) = x^n$ (단, $n \in \mathbb{N}$)일 때, $f'(x) = nx^{n-1}$
+
+**증명**:
+$$
+f'(x) = \lim_{h \to 0} \frac{(x+h)^n - x^n}{h}
+$$
+
+이항정리를 적용하면:
+$$
+(x+h)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k} h^k
+$$
+
+여기서 $\binom{n}{k} = \frac{n!}{k!(n-k)!}$는 이항계수이다.
+
+전개하면:
+$$
+(x+h)^n = x^n + nx^{n-1}h + \binom{n}{2}x^{n-2}h^2 + \cdots + h^n
+$$
+
+따라서:
+$$
+\begin{align}
+f'(x) &= \lim_{h \to 0} \frac{x^n + nx^{n-1}h + \binom{n}{2}x^{n-2}h^2 + \cdots + h^n - x^n}{h} \\
+&= \lim_{h \to 0} \left(nx^{n-1} + \binom{n}{2}x^{n-2}h + \cdots + h^{n-1}\right) \\
+&= nx^{n-1}
+\end{align}
+$$
+
+마지막 등식은 $h \to 0$일 때 $h$를 포함하는 모든 항이 0으로 수렴하기 때문이다.
+
+### 단계 3: 선형성 (Linearity of Differentiation)
+
+#### 3.1 합의 법칙 (Sum Rule)
+
+**정리**: $(f + g)'(x) = f'(x) + g'(x)$
+
+**증명**:
+$$
+\begin{align}
+(f + g)'(x) &= \lim_{h \to 0} \frac{[f(x+h) + g(x+h)] - [f(x) + g(x)]}{h} \\
+&= \lim_{h \to 0} \left[\frac{f(x+h) - f(x)}{h} + \frac{g(x+h) - g(x)}{h}\right] \\
+&= \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} + \lim_{h \to 0} \frac{g(x+h) - g(x)}{h} \\
+&= f'(x) + g'(x)
+\end{align}
+$$
+
+#### 3.2 상수배의 법칙 (Constant Multiple Rule)
+
+**정리**: $(cf)'(x) = c \cdot f'(x)$ (단, $c$는 상수)
+
+**증명**:
+$$
+\begin{align}
+(cf)'(x) &= \lim_{h \to 0} \frac{c \cdot f(x+h) - c \cdot f(x)}{h} \\
+&= c \cdot \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} \\
+&= c \cdot f'(x)
+\end{align}
+$$
+
+### 단계 4: 다항함수의 미분
+
+**정리**: 다항함수 $P(x) = \sum_{k=0}^{n} a_k x^k$에 대해:
+$$
+P'(x) = \sum_{k=1}^{n} k \cdot a_k x^{k-1}
+$$
+
+**증명**: 위의 법칙들을 조합하면:
+$$
+\begin{align}
+P'(x) &= \frac{d}{dx}\left(\sum_{k=0}^{n} a_k x^k\right) \\
+&= \sum_{k=0}^{n} \frac{d}{dx}(a_k x^k) \quad \text{(합의 법칙)} \\
+&= \sum_{k=0}^{n} a_k \cdot \frac{d}{dx}(x^k) \quad \text{(상수배 법칙)} \\
+&= \sum_{k=0}^{n} a_k \cdot k x^{k-1} \quad \text{(멱의 법칙)} \\
+&= \sum_{k=1}^{n} k \cdot a_k x^{k-1}
+\end{align}
+$$
+
+마지막 등식에서 $k=0$ 항은 0이므로 합에서 제외한다.
+
+## 컴퓨터 과학에서의 응용
+
+### 1. 경사하강법 (Gradient Descent)
+
+머신러닝에서 손실함수 $L(\theta)$를 최소화할 때 미분을 활용한다:
+
+<Tabs>
+<TabItem label="Python">
+```python
+def gradient_descent(f, df, x0, learning_rate=0.01, iterations=100):
+    """
+    f: 목적함수
+    df: f의 도함수
+    x0: 초기값
+    """
+    x = x0
+    history = [x]
+    
+    for _ in range(iterations):
+        grad = df(x)  # 미분 계산
+        x = x - learning_rate * grad  # 파라미터 업데이트
+        history.append(x)
+    
+    return x, history
+
+# 예시: f(x) = x^2 - 4x + 4 최소화
+def f(x): return x**2 - 4*x + 4
+def df(x): return 2*x - 4  # 도함수
+
+minimum, path = gradient_descent(f, df, x0=0)
+print(f"최솟값 위치: {minimum}")  # 2에 수렴
+```
+</TabItem>
+
+<TabItem label="JavaScript">
+```javascript
+function gradientDescent(f, df, x0, learningRate = 0.01, iterations = 100) {
+    let x = x0;
+    const history = [x];
+    
+    for (let i = 0; i < iterations; i++) {
+        const grad = df(x);  // 미분 계산
+        x = x - learningRate * grad;  // 파라미터 업데이트
+        history.push(x);
+    }
+    
+    return { minimum: x, history };
+}
+
+// 예시: f(x) = x^2 - 4x + 4 최소화
+const f = x => x**2 - 4*x + 4;
+const df = x => 2*x - 4;  // 도함수
+
+const result = gradientDescent(f, df, 0);
+console.log(`최솟값 위치: ${result.minimum}`);  // 2에 수렴
+```
+</TabItem>
+</Tabs>
+
+### 2. 자동 미분 (Automatic Differentiation)
+
+현대 딥러닝 프레임워크는 자동으로 도함수를 계산한다:
+
+```python
+import torch
+
+# PyTorch의 자동 미분
+x = torch.tensor([2.0], requires_grad=True)
+y = x**3 - 2*x**2 + x - 1  # f(x) = x³ - 2x² + x - 1
+
+y.backward()  # 자동으로 dy/dx 계산
+print(f"x=2에서의 도함수: {x.grad}")  # f'(2) = 3(2)² - 4(2) + 1 = 5
+```
+
+### 3. 수치 미분 vs 해석적 미분
+
+<Card title="비교" icon="information">
+| 방법          | 장점                 | 단점                     | 시간복잡도 |
+| ------------ | ------------------- | ----------------------- | ------- |
+| **수치 미분**  | 구현 간단, 모든 함수 가능 | 오차 발생, 계산 비용 높음    |  $O(n)$  |
+| **해석적 미분** | 정확, 빠름            | 수식 필요, 복잡한 함수 어려움 |  $O(1)$  |
+| **자동 미분**  | 정확, 복잡한 함수 가능   | 메모리 사용량 증가          |  $O(1)$  |
+</Card>
+
+### 4. 실제 구현: 다항식 클래스
+
+```python
+class Polynomial:
+    """다항식과 그 도함수를 다루는 클래스"""
+    
+    def __init__(self, coefficients):
+        """
+        coefficients: [a0, a1, a2, ...] for a0 + a1*x + a2*x^2 + ...
+        """
+        self.coeffs = coefficients
+    
+    def __call__(self, x):
+        """다항식 값 계산"""
+        return sum(coeff * x**i for i, coeff in enumerate(self.coeffs))
+    
+    def derivative(self):
+        """도함수 반환"""
+        if len(self.coeffs) <= 1:
+            return Polynomial([0])
+        
+        new_coeffs = [i * coeff for i, coeff in enumerate(self.coeffs)][1:]
+        return Polynomial(new_coeffs)
+    
+    def __str__(self):
+        terms = []
+        for i, coeff in enumerate(self.coeffs):
+            if coeff != 0:
+                if i == 0:
+                    terms.append(str(coeff))
+                elif i == 1:
+                    terms.append(f"{coeff}x")
+                else:
+                    terms.append(f"{coeff}x^{i}")
+        return " + ".join(terms) if terms else "0"
+
+# 사용 예시
+p = Polynomial([1, -2, 3])  # 1 - 2x + 3x^2
+print(f"P(x) = {p}")
+print(f"P'(x) = {p.derivative()}")  # -2 + 6x
+print(f"P(2) = {p(2)}")  # 9
+print(f"P'(2) = {p.derivative()(2)}")  # 10
+```
+
+## 추가 고려사항
+
+### 일반화와 확장
+
+이 문서에서 다룬 멱의 법칙은 양의 정수 $n$에 대해 증명하였다. 이 결과는 다음과 같이 확장할 수 있다:
+
+1. **음의 정수 지수**: $x^{-n} = \frac{1}{x^n}$에 대해 연쇄법칙 적용
+2. **유리수 지수**: $x^{p/q}$에 대해 음함수 미분 적용
+3. **실수 지수**: 지수함수와 로그함수를 통한 일반화
+
+### 계산 복잡도 관점
+
+다항함수의 미분은 계수만 조정하므로 $O(n)$ 시간에 계산한다. 이는 수치 미분의 $O(n^2)$보다 효율적이다.
+
+## 참고 자료
+
+- 📺 [3Blue1Brown: Essence of Calculus](https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr)
+- 📝 [Automatic Differentiation in Machine Learning: a Survey](https://arxiv.org/abs/1502.05767)
+- 📖 [Deep Learning Book - Chapter 4: Numerical Computation](https://www.deeplearningbook.org/contents/numerical.html)
+
+---
+
+[^1]: [Wikipedia | "Derivative"](https://en.wikipedia.org/wiki/Derivative#:~:text=Derivatives%20can%20be%20generalized%20to%20functions%20of%20several%20real%20variables)  
+"*The derivative … is the slope of the tangent line …*"  
+"*Derivatives can be generalized to functions …*"
+
+[^2]: [Wikipedia | "Differential (mathematics)"](https://en.wikipedia.org/wiki/Differential_(mathematics)#:~:text=The%20term%20differential%20is%20used%20nonrigorously%20in%20calculus%20to%20refer%20to%20an%20infinitesimal%20(%22infinitely%20small%22)%20change%20in%20some%20varying%20quantity)  
+"*… refer to an infinitesimal ("infinitely small") change …*"

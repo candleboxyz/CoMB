@@ -1,0 +1,50 @@
+---
+title: Visual Studio Code | 스니펫 기능
+lastUpdated: 2025-09-08
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+
+<Steps titleSite="p">
+
+1. <span style="margin-top: 0;"><kbd>ctrl / cmd</kbd></span> + <kbd>shift</kbd> + <kbd>P</kbd>
+
+2. **`Snippets: Configure Snippets`** 항목 선택.
+
+3. **`New Global Snippets File...`** 선택 (필요에 따라 다른 항목 선택) 후 스니펫 파일명 입력.
+
+3. 다음의 예시와 같이 스니펫으로 구성하고 싶은 내용을 작성한다.
+
+    ```json title="〈파일명〉.code-snippets" {11-17} "mdf" "MDX frontmatter template"
+    {
+        // Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+        // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+        // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+        // used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+        // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+        // Placeholders with the same ids are connected.
+        "Print to console": {
+            "prefix": "mdf",
+            "body": [
+                "---",
+                "title: $1",
+                "lastUpdated: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+                "sidebar:",
+                "\tbadge: draft",
+                "draft: true",
+                "---\n\n"
+            ],
+            "description": "MDX frontmatter template"
+        }
+    }
+    ```
+
+    - `"prefix"`: 스니펫 작동 트리거
+    - `"body"`: 스니펫 본문
+        - `$1`: Placeholder; 사용자 입력을 위한 입력 버퍼의 위치이자 순서이며, <kbd>tab</kbd>으로 순회
+        - `$CURRENT_YEAR`: Variable; 사용자 입력이 아닌, 자동 입력 변수
+        - *더 자세한 내용은 [freeCodeCamp의 콘텐츠](https://www.freecodecamp.org/news/definitive-guide-to-snippets-visual-studio-code/) 참고*
+    - `"description"`: 스니펫에 대한 설명, 코드 편집창에서 스니펫 미리보기에 나오는 설명 문구
+
+</Steps>

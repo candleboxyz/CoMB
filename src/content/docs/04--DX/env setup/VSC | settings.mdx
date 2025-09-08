@@ -1,23 +1,25 @@
 ---
 title: Visual Studio Code | 유용한 설정
-draft: true
+lastUpdated: 2025-09-08
 ---
 
 
-`〈Ctrl/Cmd〉 + Shift + P`를 눌러 명령 팔레트를 열고, "Preferences: Open User Settings (JSON)"을 입력하여 위 설정을 추가할 수 있다.
+<kbd>ctrl / cmd</kbd> + <kbd>shift</kbd> + <kbd>P</kbd> 를 눌러 명령 팔레트를 열고,  
+<strong>`Preferences: Open User Settings (JSON)`</strong>을 입력/선택하여 아래 설정을 작성할 수 있다.
 
-> 여기서 *Windows는 `Ctrl` 키를, macOS는 `Cmd` 키를 통해 팔레트를 켠다.*
+> 여기서 *Windows는 <kbd>ctrl</kbd> 키를, macOS는 <kbd>Cmd</kbd> 키를 통해 팔레트를 켠다.*
 
 아래 설정은 Visual Studio Code에서 유용하게 사용할 수 있는 몇 가지 설정이다.
 
-```json title="settings.json" showLineNumbers {2-8, 10, 12-17}
+```json title="settings.json" showLineNumbers {2-9, 11, 13-18}
 {
     "editor.mouseWheelZoom": true,
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "trailing",
     "editor.rulers": [
-        72, // Python - docstring/comment
-        79, // Python (https://peps.python.org/pep-0008/)
+        72,  // Python - docstring/comment
+        79,  // Python (https://peps.python.org/pep-0008/)
+        {"column": 88, "color": "#272727"},  // Black formatter
     ],
     
     "files.autoSave": "onFocusChange",

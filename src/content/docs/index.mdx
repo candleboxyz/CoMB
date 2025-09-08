@@ -1,36 +1,51 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: CoMB 🍯
+description: A personal knowledge base, of and for what I have learned and learn.
 template: splash
+editUrl: false
+lastUpdated: false
+banner:
+  content: |
+    <i><u>This project is in its early stages</u>. Not all content has been uploaded and displayed, and further development is needed to mature it.</i><br>The primary language used will be <strong>Korean</strong>, and the project aims to implement i18n and start expanding to English in the near future.
 hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
+  # title: 
+  tagline: A personal knowledge base, of and for what I have learned and learn :)
+  # image:
+  # file: ../../assets/houston.webp
   actions:
-    - text: Example Guide
-      link: /guides/example/
-      icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
-      variant: minimal
+  - text: Dive in 🤿
+    link: /guides/example/
+    icon: right-arrow
+  # - text: Read the Starlight docs
+  #   link: https://starlight.astro.build
+  #   icon: external
+  #   variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, LinkCard, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
+## Zone
+
+<CardGrid>
+	<LinkCard
+		title="∑ Mathematics"
+		href="/math/readme"
+		description="Understanding theories intuitively but yet comparably rigorous"
+	/>
+	<LinkCard
+		title="🧮 Computer Science & Engineering (CSE)"
+		href="/computer-science-engineering/readme"
+		description="Deep diving and hands-on experiments"
+	/>
+	<LinkCard
+		title="🧠 Artificial Intelligence"
+		href="/artificial-intelligence/readme"
+		description="Establishing the fundamental concepts of AI/ML"
+	/>
+	<LinkCard
+		title="⚙️ Developer Experience & Setup"
+		href="/developer-experience/readme"
+		description="For a more convenient developer life"
+	/>
 </CardGrid>

@@ -76,7 +76,7 @@ export default defineConfig({
 				]),
 				starlightVideos()
 			],
-			title: 'COMB',
+			title: 'CoMB',
 			head: [
 				{
 					tag: 'link',

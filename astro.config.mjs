@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { loadEnv } from 'vite';
 import starlight from '@astrojs/starlight';
 
 import starlightSidebarTopics from 'starlight-sidebar-topics'
@@ -8,6 +9,12 @@ import starlightVideos from 'starlight-videos'
 import rehypeMathJax from 'rehype-mathjax';
 import remarkMath from 'remark-math';
 import remarkMermaid from 'remark-mermaidjs';
+
+
+// load .env for local development
+const env = loadEnv(process.env.NODE_ENV || 'development', process.cwd(), '');
+// support both runtime environment (deployed env) variables and local .env
+const GTM_ID = process.env.PUBLIC_GTM_ID || env.PUBLIC_GTM_ID;
 
 
 // https://astro.build/config
@@ -92,6 +99,18 @@ export default defineConfig({
 						type: 'text/javascript',
 					},
 				},
+				{
+					// [ GTM script tag in the `head` ]
+					// This script initializes Google Tag Manager
+					// and should be placed as high in the head as possible.
+					// It loads the GTM library asynchronously.
+					tag: 'script',
+					content: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`
+        		},
 			],
 			customCss: [
 				'./src/styles/global.css',
